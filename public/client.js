@@ -1,12 +1,26 @@
 const socket = io();
 
+const usernameForm = document.getElementById("usernameForm");
+const usernameInput = document.getElementById("usernameInput");
+const submitUsernameButton = document.getElementById("submitUsername");
+
+const gameElement = document.getElementById("game");
 const questionElement = document.getElementById("question");
 const answerInput = document.getElementById("answerInput");
 const submitAnswerButton = document.getElementById("submitAnswer");
 const scoreboard = document.getElementById("scoreboard");
 
+submitUsernameButton.addEventListener("click", () => {
+  const username = usernameInput.value.trim();
+  if (username) {
+    socket.emit("setUsername", { username: username });
+    usernameForm.style.display = "none";
+    gameElement.style.display = "block";
+  }
+});
+
 submitAnswerButton.addEventListener("click", () => {
-  const answer = answerInput.value;
+  const answer = answerInput.value.trim();
   socket.emit("answer", { answer: answer });
   answerInput.value = "";
 });

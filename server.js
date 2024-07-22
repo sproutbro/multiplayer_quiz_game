@@ -8,7 +8,7 @@ const io = socketIo(server);
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/"));
 
 let players = {};
 let questions = [
@@ -22,11 +22,19 @@ let currentQuestionIndex = 0;
 io.on("connection", (socket) => {
   console.log("A user connected: " + socket.id);
 
-  players[socket.id] = { score: 0 };
+  players[socket.id] = { score: 0, username: "Player " + socket.id };
 
   socket.on("disconnect", () => {
     console.log("A user disconnected: " + socket.id);
     delete players[socket.id];
+    io.emit("scoreboardUpdate", players);
+  });
+
+  socket.on("setUsername", (data) => {
+    if (players[socket.id]) {
+      players[socket.id].username = data.username;
+      io.emit("scoreboardUpdate", players);
+    }
   });
 
   socket.on("answer", (data) => {
