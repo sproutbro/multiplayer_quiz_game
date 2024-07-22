@@ -1,11 +1,61 @@
+html {
+  height: 100%;
+}
 body {
   font-family: Arial, sans-serif;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background-color: #f0f0f0;
   margin: 0;
+}
+
+.header_container {
+  padding: 10px;
+  height: 10%;
+}
+
+.main_container {
+  border: 1px solid black;
+  height: 80%;
+}
+
+.question_container {
+  padding: 10px;
+  height: 10%;
+}
+
+.score_container {
+  border: 1px solid black;
+  height: 20%;
+  padding: 10px;
+  overflow: auto;
+}
+
+.input_container {
+  padding: 10px;
+  height: 10%;
+}
+
+.input_container button {
+  width: 200px; /* 너비 설정 */
+  height: 60px; /* 높이 설정 */
+  padding: 15px 30px; /* 패딩 설정 */
+  font-size: 20px; /* 글자 크기 설정 */
+  border-radius: 10px; /* 둥근 모서리 설정 (선택사항) */
+  background-color: #4caf50; /* 배경색 설정 */
+  color: white; /* 글자색 설정 */
+  border: none; /* 테두리 설정 */
+  cursor: pointer; /* 마우스 커서 설정 */
+}
+
+.chat_container {
+  border: 1px solid black;
+  padding: 10px;
+  height: 50%;
+  overflow: auto;
 }
 
 #usernameForm,
@@ -14,5 +64,5 @@ body {
 }
 
 #scoreboard {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }

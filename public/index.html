@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multiplayer Quiz Game</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="usernameForm">
-    <input type="text" id="usernameInput" placeholder="Enter your username">
-    <button id="submitUsername">Submit</button>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplayer Quiz Game</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header_container">
+      <h1>퀴즈 게임</h1>
+    </div>
 
-  <div id="game" style="display: none;">
-    <div id="question"></div>
-    <input type="text" id="answerInput" placeholder="Type your answer">
-    <button id="submitAnswer">Submit</button>
-    <div id="scoreboard"></div>
-  </div>
+    <div class="main_container">
+      <div class="score_container">
+        <div id="scoreboard"></div>
+      </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
-</body>
+      <div class="chat_container">
+        <div id="chat_container"></div>
+      </div>
+
+      <div class="question_container">
+        <div id="question"></div>
+      </div>
+    </div>
+
+    <div class="input_container">
+      <div id="usernameForm">
+        <form id="username_form">
+          <input
+            type="text"
+            id="usernameInput"
+            placeholder="이름을입력하세요"
+          />
+          <button id="submitUsername">Submit</button>
+        </form>
+      </div>
+
+      <div id="game" style="display: none">
+        <form id="game_form">
+          <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+          <button id="submitAnswer">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
 </html>
