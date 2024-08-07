@@ -1,6 +1,10 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
+require("dotenv").config();
 
 const app = express();
 const server = http.createServer(app);
@@ -8,7 +12,25 @@ const io = socketIo(server);
 
 const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.static("public"));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // 세션 암호화에 사용될 비밀키 (필수 설정)
+    resave: false, // 세션 데이터의 변경이 없어도 항상 저장할지 여부
+    saveUninitialized: true, // 초기화되지 않은 세션도 저장할지 여부
+    cookie: {
+      secure: false, // HTTPS에서만 쿠키 전송 여부
+      maxAge: 1000 * 60 * 60, // 세션의 유효 기간 (millisecond 단위)
+    },
+  })
+);
+
+// 라우터
+const indexRouter = require("./routes/index.js");
+app.use("/", indexRouter);
 
 let players = {};
 let questions = [

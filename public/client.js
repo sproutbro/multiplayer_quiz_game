@@ -1,32 +1,30 @@
 const socket = io();
 
-const usernameForm = document.getElementById("usernameForm");
-const usernameInput = document.getElementById("usernameInput");
-const submitUsernameButton = document.getElementById("submitUsername");
-
 const gameElement = document.getElementById("game");
 const questionElement = document.getElementById("question");
 const answerInput = document.getElementById("answerInput");
 const submitAnswerButton = document.getElementById("submitAnswer");
 const scoreboard = document.getElementById("scoreboard");
 const chat_container = document.querySelector(".chat_container");
-
-// submitUsernameButton.addEventListener("click", () => {
-//   const username = usernameInput.value.trim();
-//   if (username) {
-//     socket.emit("setUsername", { username: username });
-//     usernameForm.style.display = "none";
-//     gameElement.style.display = "block";
-//   }
-// });
-
-// submitAnswerButton.addEventListener("click", () => {
-//   const answer = answerInput.value.trim();
-//   socket.emit("answer", { answer: answer });
-//   answerInput.value = "";
-// });
-const username_form = document.getElementById("username_form");
 const game_form = document.getElementById("game_form");
+const login_button = document.getElementById("login_button");
+
+checkLogin();
+
+// 로그인 체크 기능
+async function checkLogin() {
+  try {
+    const response = await fetch("/auth");
+    if (!response.ok) return;
+    const username = await response.json();
+    socket.emit("setUsername", username);
+    login_button.style.display = "none";
+    gameElement.style.display = "block";
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 game_form.addEventListener("submit", (e) => {
   e.preventDefault();
   const answer = answerInput.value.trim();
@@ -34,13 +32,18 @@ game_form.addEventListener("submit", (e) => {
   answerInput.value = "";
 });
 
-username_form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const username = usernameInput.value.trim();
-  if (username) {
-    socket.emit("setUsername", { username: username });
-    usernameForm.style.display = "none";
-    gameElement.style.display = "block";
+// 스코어보드 세팅 기능
+socket.on("scoreboardUpdate", (player) => {
+  for (let key in player) {
+    const value = player[key];
+
+    const playerScoreElement = document.getElementById(value.username);
+    if (!playerScoreElement) {
+      const newScoreElement = document.createElement("div");
+      newScoreElement.id = value.username;
+      newScoreElement.textContent = `Player ${value.username}: ${value.score}`;
+      scoreboard.appendChild(newScoreElement);
+    }
   }
 });
 
