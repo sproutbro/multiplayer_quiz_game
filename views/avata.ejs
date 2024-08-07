@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplayer Quiz Game</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="avata.css" />
+  </head>
+  <body>
+    <div class="header_container">
+      <h1>아바타</h1>
+    </div>
+
+    <div class="main_container">
+      <div class="avata_container">
+        <img src="<%= avatar.skin_tone %>" alt="skin" class="avata_skin" />
+        <img src="<%= avatar.hair_style %>" alt="hair" class="avata_hair" />
+        <img
+          src="<%= avatar.clothing %>"
+          alt="clothing"
+          class="avata_clothing"
+        />
+        <img
+          src="<%= avatar.accessories %>"
+          alt="accessories"
+          class="avata_accessories"
+        />
+      </div>
+
+      <div class="shop_container">
+        <div class="item_container">
+          <img src="/img/hair01.png" alt="hair" height="100%" />
+          <img src="/img/hair02.png" alt="hair" height="100%" />
+          <img src="/img/hair03.png" alt="hair" height="100%" />
+          <img src="/img/hair04.png" alt="hair" height="100%" />
+        </div>
+
+        <div class="item_container">
+          <img src="/img/clothing01.png" alt="clothing" height="100%" />
+          <img src="/img/clothing02.png" alt="clothing" height="100%" />
+          <img src="/img/clothing03.png" alt="clothing" height="100%" />
+        </div>
+
+        <div class="item_container">
+          <img src="/img/accessories01.png" alt="accessories" height="100%" />
+          <img src="/img/accessories02.png" alt="accessories" height="100%" />
+        </div>
+
+        <div class="item_container">
+          <img src="/img/skin01.png" alt="skin" height="100%" />
+          <img src="/img/skin02.png" alt="skin" height="100%" />
+          <img src="/img/skin03.png" alt="skin" height="100%" />
+        </div>
+      </div>
+    </div>
+
+    <div class="input_container">
+      <form action="/avata" method="post" id="avata_form">
+        <input type="hidden" name="skin" />
+        <input type="hidden" name="hair" />
+        <input type="hidden" name="clothing" />
+        <input type="hidden" name="accessories" />
+        <button>저장하기</button>
+      </form>
+    </div>
+    <script src="avata.js"></script>
+  </body>
+</html>

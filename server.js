@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const http = require("http");
 const socketIo = require("socket.io");
 const cookieParser = require("cookie-parser");
@@ -11,6 +12,10 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const PORT = process.env.PORT || 3000;
+
+// EJS 템플릿 엔진 설정
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -89,7 +94,18 @@ io.on("connection", (socket) => {
   socket.on("setUsername", (data) => {
     if (players[socket.id]) {
       players[socket.id].username = data.username;
+      players[socket.id].id = data.id;
+      players[socket.id].provider = data.provider;
       io.emit("scoreboardUpdate", players);
+    }
+  });
+
+  socket.on("userInfo", (data) => {
+    for (let key in players) {
+      const value = players[key];
+      if (value.username === data) {
+        return io.emit("userInfo", value);
+      }
     }
   });
 

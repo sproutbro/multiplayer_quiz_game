@@ -22,20 +22,17 @@ router.use("/", async (req, res) => {
 
   // 쿠키확인
   const access_token_cookie = req.cookies["access_token"];
-  if (!access_token_cookie) return;
-
-  // 세션확인
-  if (!req.session.access_token) {
-    req.session.access_token = access_token_cookie;
-  }
+  if (!access_token_cookie) return; //로그인안한회원
+  const user_info_cookie = req.cookies["user_info"];
+  if (user_info_cookie) return res.send(user_info_cookie);
 
   // 유저정보조회
   try {
-    const user_info = await kakao.userInfo(
-      req.session.access_token.access_token
-    );
+    const user_info = await kakao.userInfo(access_token_cookie.access_token);
+    res.cookie("user_info", user_info);
 
     let result;
+    // DB확인
     result = await executeQuery(
       `
         select 
@@ -50,13 +47,13 @@ router.use("/", async (req, res) => {
       ["kakao", user_info.id]
     );
 
-    // db에 유저정보가 있는경우
+    // DB에 유저정보가 있는경우
     if (result.rowCount) {
-      return res.send({ username: user_info.properties.nickname });
+      return res.send(user_info);
     }
 
-    // db에 유저정보가 없는경우
-    result = await executeQuery(
+    // DB에 유저정보가 없는경우
+    await executeQuery(
       `
         insert into 
           account 
@@ -65,8 +62,21 @@ router.use("/", async (req, res) => {
       `,
       ["kakao", user_info.id]
     );
-    res.send({ username: user_info.properties.nickname });
-    
+
+    await executeQuery(
+      `
+        INSERT INTO 
+          public.avatar
+            (provider, 
+            provideraccountid)
+        VALUES (
+          $1, 
+          $2);
+      `,
+      ["kakao", user_info.id]
+    );
+
+    res.send(user_info);
   } catch (error) {
     console.error(error);
   }
