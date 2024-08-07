@@ -3,7 +3,7 @@ const kakao = {
     const url = new URL("https://kauth.kakao.com/oauth/authorize");
     const params = new URLSearchParams({
       client_id: process.env.AUTH_KAKAO_ID,
-      redirect_uri: "http://localhost:3000/auth/callback/kakao",
+      redirect_uri: "http://158.180.65.55:3000/auth/callback/kakao",
       response_type: "code",
       prompt: "select_accoun",
       // state: Math.random().toString(),
@@ -22,7 +22,7 @@ const kakao = {
         grant_type: "authorization_code",
         client_id: process.env.AUTH_KAKAO_ID,
         client_secret: process.env.AUTH_KAKAO_SECRET,
-        redirect_uri: "http://localhost:3000/auth/callback/kakao",
+        redirect_uri: "http://158.180.65.55:3000/auth/callback/kakao",
         code,
       }),
     };

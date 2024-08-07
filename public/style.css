@@ -40,10 +40,10 @@ body {
 }
 
 .input_container button {
-  width: 200px; /* 너비 설정 */
-  height: 60px; /* 높이 설정 */
-  padding: 15px 30px; /* 패딩 설정 */
-  font-size: 20px; /* 글자 크기 설정 */
+  width: 100px; /* 너비 설정 */
+  height: 30px; /* 높이 설정 */
+  padding: 5px 10px; /* 패딩 설정 */
+  font-size: 16px; /* 글자 크기 설정 */
   border-radius: 10px; /* 둥근 모서리 설정 (선택사항) */
   background-color: #4caf50; /* 배경색 설정 */
   color: white; /* 글자색 설정 */

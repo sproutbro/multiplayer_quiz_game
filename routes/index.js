@@ -5,4 +5,8 @@ const router = express.Router();
 const authRouter = require("./auth/index.js");
 router.use("/auth", authRouter);
 
+// /avata
+const avataRouter = require("./avata/index.js");
+router.use("/avata", avataRouter);
+
 module.exports = router;

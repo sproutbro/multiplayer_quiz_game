@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const kakao = require("./provider/kakao.js");
+const executeQuery = require("../../lib/db.js");
 
 const loginRouter = require("./login");
 router.use("/login", loginRouter);
@@ -16,6 +17,7 @@ router.use("/", async (req, res) => {
   const non_member = req.cookies["non_member"];
   if (non_member) {
     res.send(non_member);
+    return;
   }
 
   // 쿠키확인
@@ -27,12 +29,44 @@ router.use("/", async (req, res) => {
     req.session.access_token = access_token_cookie;
   }
 
-  // 유저정보가져와서 닉네임 넘기기
+  // 유저정보조회
   try {
     const user_info = await kakao.userInfo(
       req.session.access_token.access_token
     );
+
+    let result;
+    result = await executeQuery(
+      `
+        select 
+          * 
+        from 
+          account a 
+        where 
+          a.provider = $1 
+          and 
+          a.provideraccountid = $2;
+      `,
+      ["kakao", user_info.id]
+    );
+
+    // db에 유저정보가 있는경우
+    if (result.rowCount) {
+      return res.send({ username: user_info.properties.nickname });
+    }
+
+    // db에 유저정보가 없는경우
+    result = await executeQuery(
+      `
+        insert into 
+          account 
+        values 
+          ($1, $2);
+      `,
+      ["kakao", user_info.id]
+    );
     res.send({ username: user_info.properties.nickname });
+    
   } catch (error) {
     console.error(error);
   }

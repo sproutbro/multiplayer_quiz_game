@@ -25,6 +25,11 @@ async function checkLogin() {
   }
 }
 
+// 유저정보보기 기능
+scoreboard.addEventListener("click", (e) => {
+  console.log(e.target.id);
+});
+
 game_form.addEventListener("submit", (e) => {
   e.preventDefault();
   const answer = answerInput.value.trim();
@@ -34,14 +39,14 @@ game_form.addEventListener("submit", (e) => {
 
 // 스코어보드 세팅 기능
 socket.on("scoreboardUpdate", (player) => {
+  scoreboard.innerHTML = "";
   for (let key in player) {
     const value = player[key];
-
     const playerScoreElement = document.getElementById(value.username);
     if (!playerScoreElement) {
       const newScoreElement = document.createElement("div");
       newScoreElement.id = value.username;
-      newScoreElement.textContent = `Player ${value.username}: ${value.score}`;
+      newScoreElement.textContent = `${value.username}: ${value.score}`;
       scoreboard.appendChild(newScoreElement);
     }
   }
@@ -66,11 +71,11 @@ socket.on("chat message", (data) => {
 function updateScoreboard(playerId, score) {
   const playerScoreElement = document.getElementById(playerId);
   if (playerScoreElement) {
-    playerScoreElement.textContent = `Player ${playerId}: ${score}`;
+    playerScoreElement.textContent = `${playerId}: ${score}`;
   } else {
     const newScoreElement = document.createElement("div");
     newScoreElement.id = playerId;
-    newScoreElement.textContent = `Player ${playerId}: ${score}`;
+    newScoreElement.textContent = `${playerId}: ${score}`;
     scoreboard.appendChild(newScoreElement);
   }
 }

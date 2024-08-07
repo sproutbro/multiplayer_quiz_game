@@ -9,7 +9,6 @@ router.get("/:provider", async (req, res) => {
     const code = req.query.code;
     access_token = await kakao.callback(code);
     res.cookie("access_token", access_token);
-    req.session.access_token = access_token;
   }
 
   res.redirect("/");
