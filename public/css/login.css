@@ -1,0 +1,14 @@
+main {
+  justify-content: center;
+}
+
+section {
+  margin: 20px 0px;
+}
+
+section a {
+  font-weight: bold;
+  border: 1px solid #999;
+  border-radius: 10px;
+  padding: 10px 30px;
+}

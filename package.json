@@ -17,9 +17,11 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
+    "cookie": "^0.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express-session": "^1.18.0",
+    "morgan": "^1.10.0",
     "pg": "^8.12.0"
   }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="description" content=""> -->
+    <!-- <meta name="keywords" content=""> -->
+    <!-- <meta name="author" content=""> -->
+
+    <title>Multiplayer Quiz Game</title>
+
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">처음</a></li>
+          <li><a href="/auth/login">로그인</a></li>
+          <li><a href="#">아바타</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="player">player</section>
+      <section id="quiz">quiz</section>
+      <div>
+        <section id="chat"></section>
+      </div>
+      <section id="input">
+        <form>
+          <input type="text" name="answer" />
+          <button>Submit</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- <footer>
+    </footer> -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="description" content=""> -->
+    <!-- <meta name="keywords" content=""> -->
+    <!-- <meta name="author" content=""> -->
+
+    <title>Multiplayer Quiz Game</title>
+
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <!-- <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav> -->
+    </header>
+
+    <main></main>
+    <div class="header_container">
+      <h1>퀴즈 게임</h1>
+    </div>
+
+    <div class="main_container">
+      <div class="avatar_container">
+        <img src="img/skin00.png" alt="skin" class="avata_skin" />
+        <img src="img/hair00.png" alt="hair" class="avata_hair" />
+        <img src="img/clothing00.png" alt="clothing" class="avata_clothing" />
+        <img
+          src="img/accessories00.png"
+          alt="accessories"
+          class="avata_accessories"
+        />
+      </div>
+      <div class="score_container">
+        <div id="scoreboard"></div>
+      </div>
+
+      <div class="chat_container">
+        <div id="chat_container"></div>
+      </div>
+
+      <div class="question_container">
+        <div id="question"></div>
+      </div>
+    </div>
+
+    <a href="/auth/login"><button id="login_button">login</button></a>
+
+    <div class="input_container">
+      <div id="game" style="display: none">
+        <form id="game_form">
+          <input type="text" id="answerInput" placeholder="정답을 입력하세요" />
+          <button id="submitAnswer">Submit</button>
+        </form>
+        <a href="/avata"><button id="avata_button">아바타</button></a>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
